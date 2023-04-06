@@ -24,6 +24,12 @@
                     <span class="link-title">Users</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('categories.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="grid"></i>
+                    <span class="link-title">Category</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

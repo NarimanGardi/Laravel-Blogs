@@ -34,8 +34,6 @@ class User extends Authenticatable implements HasMedia
         'email_verified_at' => 'datetime',
     ];
 
-    public const CSS_CLASS = ['primary','success','warning','info','secondary'];
-
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb-100')
