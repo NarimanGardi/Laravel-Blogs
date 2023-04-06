@@ -1,8 +1,6 @@
 <?php
-
-use App\Http\Controllers\Backend\RoleController;
-use App\Http\Controllers\Backend\ThemeSettingController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +20,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 Route::post('users/{id}/update/password', [UserController::class , 'updatePassword'])->name('users.update.password');
 Route::resource('users', UserController::class);
+Route::resource('categories', CategoryController::class);
 
 require __DIR__.'/auth.php';
