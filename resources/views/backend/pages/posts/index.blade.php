@@ -6,12 +6,14 @@
         <div>
             <h4 class="mb-3 mb-md-0">Manage Posts</h4>
         </div>
-        <div class="d-flex align-items-center flex-wrap text-nowrap">
-            <a href="{{ route('posts.create') }}" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
-                <i class="btn-icon-prepend" data-feather="file-text"></i>
-                Create New Post
-            </a>
-        </div>
+        @can('create-post')
+            <div class="d-flex align-items-center flex-wrap text-nowrap">
+                <a href="{{ route('posts.create') }}" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
+                    <i class="btn-icon-prepend" data-feather="file-text"></i>
+                    Create New Post
+                </a>
+            </div>
+        @endcan
     </div>
     <div class="row g-4">
         <div class="col-12">
@@ -47,14 +49,18 @@
                                         <button type="button" class="btn p-0 " data-bs-toggle="dropdown"><i
                                                 class="bx bx-dots-vertical-rounded"></i></button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ route('posts.edit',$post->id) }}"><i
+                                            @can('edit-post')
+                                                <a class="dropdown-item" href="{{ route('posts.edit',$post->id) }}"><i
                                                     class="bx bx-edit-alt me-1"></i> Edit</a>
-                                            <form action="{{ route('posts.destroy',$post->id) }}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="dropdown-item show_confirm"><i
-                                                        class="bx bx-trash me-1"></i> Delete</button>
-                                            </form>
+                                            @endcan
+                                            @can('delete-post')
+                                                <form action="{{ route('posts.destroy',$post->id) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="dropdown-item show_confirm"><i
+                                                            class="bx bx-trash me-1"></i> Delete</button>
+                                                </form>
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>
