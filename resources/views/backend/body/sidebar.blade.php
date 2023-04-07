@@ -25,9 +25,15 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('posts.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="file-text"></i>
+                    <span class="link-title">Posts</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('categories.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="grid"></i>
-                    <span class="link-title">Category</span>
+                    <span class="link-title">Categories</span>
                 </a>
             </li>
         </ul>

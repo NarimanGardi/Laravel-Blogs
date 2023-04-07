@@ -1,15 +1,15 @@
 @extends('backend.app')
-@section('title', __('Manage Categories'))
+@section('title', __('Manage Posts'))
 @section('content')
 <div class="page-content">
     <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
         <div>
-            <h4 class="mb-3 mb-md-0">Manage Categories</h4>
+            <h4 class="mb-3 mb-md-0">Manage Posts</h4>
         </div>
         <div class="d-flex align-items-center flex-wrap text-nowrap">
-            <a href="{{ route('categories.create') }}" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
-                <i class="btn-icon-prepend" data-feather="grid"></i>
-                Create New Category
+            <a href="{{ route('posts.create') }}" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
+                <i class="btn-icon-prepend" data-feather="file-text"></i>
+                Create New Post
             </a>
         </div>
     </div>
@@ -20,24 +20,26 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Title Ku</th>
-                                <th>Title Ar</th>
+                                <th>Author</th>
                                 <th>Title En</th>
+                                <th>Content En</th>
+                                <th>Category</th>
                                 <th>Photo</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            @forelse ($categories as $category)
+                            @forelse ($posts as $post)
                             <tr>
-                                <td>{{$category->title_ku}}</td>
-                                <td>{{$category->title_ar}}</td>
-                                <td>{{$category->title_en}}</td>
+                                <td>{{ $post->author->name }}</td>
+                                <td>{{ $post->title_en }}</td>
+                                <td>{{ Str::limit($post->content_en,40) }}</td>
+                                <td>{{ $post->category->title_en }}</td>
                                 <td>
                                     <div
                                     data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                                    class="avatar avatar-xs pull-up" title="" data-bs-original-title="{{ $category->title_en }}">
-                                        <img src="{{ $category->getFirstMediaUrl('category', 'thumb-38') ?? asset('backend/assets/images/user.png') }}" alt="category" class="rounded-circle" />
+                                    class="avatar avatar-xs pull-up" title="" data-bs-original-title="{{ $post->title_en }}">
+                                        <img src="{{ $post->getFirstMediaUrl('post', 'thumb-38') ?? asset('backend/assets/images/user.png') }}" alt="post" class="rounded-circle" />
                                     </div>
                                 </td>
                                 <td>
@@ -45,9 +47,9 @@
                                         <button type="button" class="btn p-0 " data-bs-toggle="dropdown"><i
                                                 class="bx bx-dots-vertical-rounded"></i></button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ route('categories.edit',$category->id) }}"><i
+                                            <a class="dropdown-item" href="{{ route('posts.edit',$post->id) }}"><i
                                                     class="bx bx-edit-alt me-1"></i> Edit</a>
-                                            <form action="{{ route('categories.destroy',$category->id) }}" method="post">
+                                            <form action="{{ route('posts.destroy',$post->id) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="dropdown-item show_confirm"><i
@@ -59,14 +61,14 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5" class="text-center">No Categories Found</td>
+                                <td colspan="5" class="text-center">No Posts Found</td>
                             </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
                 <div class="m-3">
-                    {{ $categories->links() }}
+                    {{ $posts->links() }}
                 </div>
             </div>
         </div>
