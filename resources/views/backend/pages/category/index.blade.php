@@ -6,12 +6,14 @@
         <div>
             <h4 class="mb-3 mb-md-0">Manage Categories</h4>
         </div>
+        @can('create-category')
         <div class="d-flex align-items-center flex-wrap text-nowrap">
             <a href="{{ route('categories.create') }}" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
                 <i class="btn-icon-prepend" data-feather="grid"></i>
                 Create New Category
             </a>
         </div>
+        @endcan
     </div>
     <div class="row g-4">
         <div class="col-12">
@@ -45,14 +47,18 @@
                                         <button type="button" class="btn p-0 " data-bs-toggle="dropdown"><i
                                                 class="bx bx-dots-vertical-rounded"></i></button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ route('categories.edit',$category->id) }}"><i
+                                           @can('edit-category')
+                                                <a class="dropdown-item" href="{{ route('categories.edit',$category->id) }}"><i
                                                     class="bx bx-edit-alt me-1"></i> Edit</a>
-                                            <form action="{{ route('categories.destroy',$category->id) }}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="dropdown-item show_confirm"><i
-                                                        class="bx bx-trash me-1"></i> Delete</button>
-                                            </form>
+                                           @endcan
+                                           @can('delete-category')
+                                                <form action="{{ route('categories.destroy',$category->id) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="dropdown-item show_confirm"><i
+                                                            class="bx bx-trash me-1"></i> Delete</button>
+                                                </form> 
+                                           @endcan
                                         </div>
                                     </div>
                                 </td>
