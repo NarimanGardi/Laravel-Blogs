@@ -6,12 +6,14 @@
         <div>
             <h4 class="mb-3 mb-md-0">Manage Users</h4>
         </div>
+        @can('create-user')
         <div class="d-flex align-items-center flex-wrap text-nowrap">
             <a href="{{ route('users.create') }}" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
                 <i class="btn-icon-prepend" data-feather="user"></i>
                 Create New User
             </a>
         </div>
+        @endcan
     </div>
     <div class="row g-4">
         <div class="col-12">
@@ -56,14 +58,18 @@
                                         <button type="button" class="btn p-0 " data-bs-toggle="dropdown"><i
                                                 class="bx bx-dots-vertical-rounded"></i></button>
                                         <div class="dropdown-menu">
+                                            @can('edit-user')
                                             <a class="dropdown-item" href="{{ route('users.edit',$user->id) }}"><i
-                                                    class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                class="bx bx-edit-alt me-1"></i> Edit</a>
+                                            @endcan
+                                            @can('delete-user')
                                             <form action="{{ route('users.destroy',$user->id) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="dropdown-item show_confirm"><i
                                                         class="bx bx-trash me-1"></i> Delete</button>
                                             </form>
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>
